@@ -1,0 +1,19 @@
+default: &default
+  host: localhost
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: currency_exchanger
+  password: kliendiabi
+
+development:
+  <<: *default
+  database: exchanger_development
+
+test:
+  <<: *default
+  database: exchanger_test
+
+# production:
+#   <<: *default
+#   database: exchanger_production
