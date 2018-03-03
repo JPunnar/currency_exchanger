@@ -1,6 +1,51 @@
-<h1>Listing Currency Exchanges</h1>
-<table>
-  <tr>
-    <th>Date</th>
-  </tr>
-</table>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <% if @exchange_reports.present? %>
+        <h2>Your Currency Exchange Reports</h2>
+        <br>
+        <table class="table">
+          <tr>
+            <th>Number</th>
+            <th>Currency Conversion</th>
+            <th>Generation Date</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @exchange_reports.each_with_index do |exchange_report, index| %>
+            <tr>
+              <td><%= index + 1%></td>
+              <td><%= exchange_report.conversion_currencies %></td>
+              <td><%= exchange_report.created_at.strftime('%d.%m.%Y %H:%M') %></td>
+              <th>
+                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary btn-sm' do %>
+                  <%= fa_icon "eye", text: "View" %>
+                <% end %>
+              </th>
+              <th>
+                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary btn-sm' do %>
+                  <%= fa_icon "edit", text: "Edit" %>
+                <% end %>
+              </th>
+              <th>
+                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary delete btn-sm' , data: {confirm: 'Are you sure?'}, method: :delete do %>
+                  <%= fa_icon "trash", text: "Delete" %>
+                <% end %>
+              </th>
+            </tr>
+          <% end %>
+        </table>
+      <% else %>
+        <h4>You don't have any exchange reports yet. Click 'New report' in navigation menu to create one.</h4>
+      <% end %>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-4">
+      <strong>This is a web app that helps You to decide when to exchange your currency. Supported currencies are: <%= ExchangeReport::CURRENCIES.join(', ') %>.</strong>
+    </div>
+  </div>
+</div>
+

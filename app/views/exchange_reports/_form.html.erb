@@ -1,0 +1,29 @@
+<%= form_for @exchange_report do |f| %>
+  <% if f.object.errors.any? %>
+    <ul class="alert alert-danger">
+      <% f.object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div class="form-group">
+    <%= f.label "Amount of money" %>
+  	<%= f.number_field :amount, class: "form-control", required: true %>
+    <br>
+    <div>
+      <%= f.label "Max waiting time in weeks: " %>
+      <span id="rangeFieldVal">1</span>      
+    </div>
+    <%= f.range_field :max_wait_time_in_weeks, in: 1..250, value: 1, class: "form-control" %>
+    <br>
+    <%= f.label "Base currency" %>
+    <%= f.select :base_currency, options_for_select(ExchangeReport::CURRENCIES), {}, class: "custom-select", required: true %>
+    <br>
+    <br>
+    <%= f.label "Target currency" %>
+    <%= f.select :target_currency, options_for_select(ExchangeReport::CURRENCIES), {}, class: "custom-select", required: true %>
+    <br>
+    <br>
+    <%= f.submit "Create report", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark" style="background: #2d7a71;;">
+<nav class="navbar navbar-expand-sm navbar-dark">
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
 	</button>
@@ -11,18 +11,16 @@
 	<!-- Links -->
 	<div class="collapse navbar-collapse" id="nav-content">   
 	<ul class="navbar-nav">
-  	<li class="nav-item">
+  	<li class="nav-item <%= 'active' if action_name == 'new' %>">
       <%= link_to new_exchange_report_path, class: 'nav-link' do %>
         <%= fa_icon "plus-circle", text: "New report" %>
       <% end %>
   	</li>
-  	<li class="nav-item">
-      <a class="nav-link" href="#">Link 2</a>
-  	</li>
-  	<li class="nav-item">
-      <%= link_to new_exchange_report_path, class: 'nav-link' do %>
-        <%= fa_icon "info-circle", text: "About" %>
+  	<li class="nav-item <%= 'active' if action_name == 'info' %>">
+      <%= link_to info_path, class: 'nav-link' do %>
+        <%= fa_icon "info-circle", text: "Information" %>
       <% end %>
   	</li>
 	</ul>
 </nav>
+<br>
