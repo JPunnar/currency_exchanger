@@ -1,7 +1,7 @@
 <br>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-6">
+    <div class="col-8">
       <% if @exchange_reports.present? %>
         <h2>Your Currency Exchange Reports</h2>
         <br>
@@ -20,17 +20,17 @@
               <td><%= exchange_report.conversion_currencies %></td>
               <td><%= exchange_report.created_at.strftime('%d.%m.%Y %H:%M') %></td>
               <th>
-                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary btn-sm' do %>
+                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-custom btn-sm' do %>
                   <%= fa_icon "eye", text: "View" %>
                 <% end %>
               </th>
               <th>
-                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary btn-sm' do %>
+                <%= link_to edit_exchange_report_path(exchange_report), class: 'btn btn-custom btn-sm' do %>
                   <%= fa_icon "edit", text: "Edit" %>
                 <% end %>
               </th>
               <th>
-                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-primary delete btn-sm' , data: {confirm: 'Are you sure?'}, method: :delete do %>
+                <%= link_to exchange_report_path(exchange_report), class: 'btn btn-custom btn-sm' , data: {confirm: 'Are you sure?'}, method: :delete do %>
                   <%= fa_icon "trash", text: "Delete" %>
                 <% end %>
               </th>
@@ -41,9 +41,8 @@
         <h4>You don't have any exchange reports yet. Click 'New report' in navigation menu to create one.</h4>
       <% end %>
     </div>
-    <div class="col-2">
-    </div>
     <div class="col-4">
+      <br>
       <strong>This is a web app that helps You to decide when to exchange your currency. Supported currencies are: <%= ExchangeReport::CURRENCIES.join(', ') %>.</strong>
     </div>
   </div>

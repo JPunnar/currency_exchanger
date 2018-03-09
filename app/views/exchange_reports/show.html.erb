@@ -1,32 +1,65 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-1">
-    </div>
-    <div class="col-10">
-      <h1>Currency Exchange Report</h1>
+    <div class="col-12">
+      <h2>Currency Exchange Report</h2>
+      <br>
+      <hr>
+      <strong>
+        <p>
+          Exchanging from: <%= @exchange_report.base_currency %>
+        </p>
+        <p>
+          Exchanging to: <%= @exchange_report.target_currency %>
+        </p>
+        <p>
+          <%= "Amount of #{@exchange_report.base_currency} to exchange: 
+          #{number_with_precision(@exchange_report.amount, precision: 2)}" %>
+        </p>
+        <p>
+          Report creation year and week: <%= @exchange_report.created_at.strftime('%Y - %W') %>
+        </p>
+        <p>
+          <%= "Amount of #{@exchange_report.target_currency} to receive
+          if exchanging without waiting: 
+            #{number_with_precision(@exchange_report.amount_no_waiting, precision: 2)}" %>
+        </p>
+      </strong>
+      <hr>
+      <br>
+      <h3>Chart</h3>
+      <br>
+      <%= line_chart @exchange_report.data_for_chart, min: 0.75 * @exchange_report.amount_no_waiting, max: 1.25 * @exchange_report.amount_no_waiting, curve: false, xtitle: "Year and week", ytitle: "Amount to receive" %>
+      <br>
+      <br>
+      <h3>Detailed table</h3>
       <br>
       <table class="table">
         <tr>
-          <th>Date of exchange</th>
+          <th>Year and week</th>
           <th>Rate from past</th>
           <th>Predicted rate</th>
-          <th>Profit / Loss</th>
+          <th><%= "Amount of #{@exchange_report.target_currency}" %> </th>
+          <th>Profit/Loss</th>
         </tr>
-        <% @exchange_report.exchange_rates.each do |exchange_rate| %>
+        <% @exchange_report.exchange_rates.each_with_index do |exchange_rate, index| %>
+          <% next if index.zero? %>
           <tr>
-            <td><%= exchange_rate.date %></td>
+            <td><%= @exchange_report.future_dates[index].strftime('%Y - %W') %></td>
             <td><%= exchange_rate.rate %></td>
-            <td><%= exchange_rate.rate + 0.5 %></td>
-            <td><%= 0.5 %></td>
+            <td><%= exchange_rate.prediction %></td>
+            <td class="<%= @exchange_report.profit?(exchange_rate) ? 'text-success' :
+              'text-danger' %>"><%= @exchange_report.target_currency_amount(exchange_rate) %></td>
+            <td class="<%= @exchange_report.profit?(exchange_rate) ? 'text-success' :
+              'text-danger' %>"><%= @exchange_report.profit_or_loss(exchange_rate) %></td>
           </tr>
         <% end %>
       </table>
       <br>
-      <%= link_to root_path, class: 'btn btn-primary' do %>
+      <%= link_to root_path, class: 'btn btn-custom' do %>
         <%= fa_icon "chevron-circle-left", text: "Back" %>
       <% end %>
-    </div>
-    <div class="col-1">
+
     </div>
   </div>
+  <br>
 </div>

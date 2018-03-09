@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228181645) do
+ActiveRecord::Schema.define(version: 20180306082142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,16 @@ ActiveRecord::Schema.define(version: 20180228181645) do
     t.string "target_currency", limit: 3, null: false
     t.date "date", null: false
     t.decimal "rate", null: false
+    t.decimal "prediction", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "exchange_rates_reports", id: false, force: :cascade do |t|
+    t.bigint "exchange_rate_id", null: false
+    t.bigint "exchange_report_id", null: false
+    t.index ["exchange_rate_id"], name: "index_exchange_rates_reports_on_exchange_rate_id"
+    t.index ["exchange_report_id"], name: "index_exchange_rates_reports_on_exchange_report_id"
   end
 
   create_table "exchange_reports", force: :cascade do |t|
@@ -32,11 +40,7 @@ ActiveRecord::Schema.define(version: 20180228181645) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "graphs", force: :cascade do |t|
-    t.integer "exchange_report_id"
-    t.integer "exchange_rate_id"
+    t.date "future_dates", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,3 +1,4 @@
+# creating exchange_reports here
 class CreateExchangeReports < ActiveRecord::Migration[5.1]
   def change
     create_table :exchange_reports do |t|
@@ -6,7 +7,7 @@ class CreateExchangeReports < ActiveRecord::Migration[5.1]
       t.decimal :amount, null: false
       t.integer :max_wait_time_in_weeks, null: false
       t.integer :user_id
-      t.timestamps null: false    	
+      t.timestamps null: false
     end
   end
 end

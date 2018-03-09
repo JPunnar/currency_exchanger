@@ -1,35 +1,29 @@
 @import "bootstrap"
 @import font-awesome
 
+a
+  color: #33968a
+
 .alert
   text-align: center
 
 .navbar
   background: #33968a
 
-.btn-primary
+.btn-custom
   background: #33968a
   border-color: #0e6342
+  color: white
   &:hover
     background: #266c64
     border-color: #0a4d33
-  .delete
-    background: #0a5638
+    color: white
   &:active
-    background: #266c64
-    border-color: #0a4d33
-  .delete
-    background: #0a5638
-  &:visited
-    background: #266c64
-    border-color: #0a4d33
-  .delete
-    background: #0a5638
-  &:focus
-    background: #266c64
-    border-color: #0a4d33
-  .delete
-    background: #0a5638
+    box-shadow: none
 
 .table
   font-size: 90%
+
+#error_explanation
+  h2
+    font-size: 1.4em
