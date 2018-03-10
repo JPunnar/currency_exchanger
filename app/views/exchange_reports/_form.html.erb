@@ -12,9 +12,10 @@
     <br>
     <div>
       <%= f.label "Max waiting time in weeks: " %>
-      <span id="rangeFieldVal">1</span>      
+      <span id="rangeFieldVal"><%= (f.object.max_wait_time_in_weeks || 1) %></span>      
     </div>
-    <%= f.range_field :max_wait_time_in_weeks, in: 1..250, value: 1, class: "form-control" %>
+    <%= f.range_field :max_wait_time_in_weeks, in: 1..250, value: (f.object.max_wait_time_in_weeks || 1),
+      class: "form-control" %>
     <br>
     <%= f.label "Base currency" %>
     <%= f.select :base_currency, options_for_select(ExchangeReport::CURRENCIES, f.object.base_currency), {}, class: "custom-select", required: true %>
@@ -24,6 +25,6 @@
     <%= f.select :target_currency, options_for_select(ExchangeReport::CURRENCIES, f.object.target_currency), {}, class: "custom-select", required: true %>
     <br>
     <br>
-    <%= f.submit "Create report", class: "btn btn-custom" %>
+    <%= f.submit "Submit", class: "btn btn-custom" %>
   </div>
 <% end %>

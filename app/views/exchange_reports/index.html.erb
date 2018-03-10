@@ -38,10 +38,12 @@
           <% end %>
         </table>
       <% else %>
-        <h4>You don't have any exchange reports yet. Click 'New report' in navigation menu to create one.</h4>
+        <h5>You don't have any exchange reports yet. Click 'New report'
+         in navigation menu to create one.</h5>
       <% end %>
     </div>
-    <div class="col-4">
+    <div class="col-1"></div>
+    <div class="col-3">
       <br>
       <strong>This is a web app that helps You to decide when to exchange your currency. Supported currencies are: <%= ExchangeReport::CURRENCIES.join(', ') %>.</strong>
     </div>

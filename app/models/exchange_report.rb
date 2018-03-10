@@ -9,6 +9,7 @@ class ExchangeReport < ApplicationRecord
   validates :amount, :max_wait_time_in_weeks, :base_currency, :target_currency, presence: true
   validates_inclusion_of :max_wait_time_in_weeks, in: 1..250, message: "is too big or too small"
   validates_inclusion_of :amount, in: 1..1000000, message: "is too big or too small"
+  validates_inclusion_of :base_currency, :target_currency, in: CURRENCIES, message: "not supported"
   validate :base_and_target_currency_cannot_be_same
 
   before_save :calculate_corresponding_future_dates
@@ -52,9 +53,10 @@ class ExchangeReport < ApplicationRecord
     (amount * exchange_rates.first.prediction).round(2)
   end
 
-  def profit?(rate)
-    return true if target_currency_amount(rate) > amount_no_waiting
-    return false
+  def color_class(rate)
+    return 'text-success' if target_currency_amount(rate) > amount_no_waiting
+    return 'text-danger' if target_currency_amount(rate) < amount_no_waiting
+    ''
   end
 
   def profit_or_loss(rate)
@@ -89,6 +91,38 @@ class ExchangeReport < ApplicationRecord
     future_dates << generation_date
     1.upto(max_wait_time_in_weeks) do |i|
       future_dates << generation_date + i.weeks
+    end
+  end
+
+  def find_ids_of_best_weeks
+    exchange_rates.sort_by { |rate| -rate.prediction}.first(3).map(&:id)
+  end
+
+  def rank_class(exchange_rate_id)
+    top_ids = find_ids_of_best_weeks
+    case exchange_rate_id
+    when top_ids[0]
+      return 'rank-first'
+    when top_ids[1]
+      return 'rank-second'
+    when top_ids[2]
+      return 'rank-third'
+    else
+      return ''
+    end
+  end
+
+  def rank_number(exchange_rate_id)
+    top_ids = find_ids_of_best_weeks
+    case exchange_rate_id
+    when top_ids[0]
+      return '1'
+    when top_ids[1]
+      return '2'
+    when top_ids[2]
+      return '3'
+    else
+      return ''
     end
   end
 end

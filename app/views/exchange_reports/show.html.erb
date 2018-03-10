@@ -1,8 +1,12 @@
 <div class="container">
+  <%= link_to root_path, class: 'btn btn-custom' do %>
+    <%= fa_icon "chevron-circle-left", text: "Back" %>
+  <% end %>
+  <br>
+  <br>
   <div class="row">
     <div class="col-12">
       <h2>Currency Exchange Report</h2>
-      <br>
       <hr>
       <strong>
         <p>
@@ -28,13 +32,16 @@
       <br>
       <h3>Chart</h3>
       <br>
-      <%= line_chart @exchange_report.data_for_chart, min: 0.75 * @exchange_report.amount_no_waiting, max: 1.25 * @exchange_report.amount_no_waiting, curve: false, xtitle: "Year and week", ytitle: "Amount to receive" %>
+      <%= line_chart @exchange_report.data_for_chart, min: 0.75 * @exchange_report.amount_no_waiting,
+        max: 1.25 * @exchange_report.amount_no_waiting, curve: false, xtitle: "Year and week",
+        ytitle: "Amount to receive" %>
       <br>
       <br>
       <h3>Detailed table</h3>
       <br>
       <table class="table">
         <tr>
+          <th>Rank</th>
           <th>Year and week</th>
           <th>Rate from past</th>
           <th>Predicted rate</th>
@@ -42,15 +49,15 @@
           <th>Profit/Loss</th>
         </tr>
         <% @exchange_report.exchange_rates.each_with_index do |exchange_rate, index| %>
-          <% next if index.zero? %>
-          <tr>
+          <tr class="<%= @exchange_report.rank_class(exchange_rate.id) %>">
+            <td><strong><%= @exchange_report.rank_number(exchange_rate.id) %></strong></td>
             <td><%= @exchange_report.future_dates[index].strftime('%Y - %W') %></td>
             <td><%= exchange_rate.rate %></td>
             <td><%= exchange_rate.prediction %></td>
-            <td class="<%= @exchange_report.profit?(exchange_rate) ? 'text-success' :
-              'text-danger' %>"><%= @exchange_report.target_currency_amount(exchange_rate) %></td>
-            <td class="<%= @exchange_report.profit?(exchange_rate) ? 'text-success' :
-              'text-danger' %>"><%= @exchange_report.profit_or_loss(exchange_rate) %></td>
+            <td class="<%= @exchange_report.color_class(exchange_rate) %>">
+              <%= @exchange_report.target_currency_amount(exchange_rate) %></td>
+            <td class="<%= @exchange_report.color_class(exchange_rate) %>">
+              <%= @exchange_report.profit_or_loss(exchange_rate) %></td>
           </tr>
         <% end %>
       </table>
@@ -58,7 +65,6 @@
       <%= link_to root_path, class: 'btn btn-custom' do %>
         <%= fa_icon "chevron-circle-left", text: "Back" %>
       <% end %>
-
     </div>
   </div>
   <br>
