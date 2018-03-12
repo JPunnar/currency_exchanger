@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'exchange_reports#index'
+      root "exchange_reports#index"
     end
 
     unauthenticated do
-      root 'devise/sessions#new'
+      root "devise/sessions#new"
     end
   end
   resources :exchange_reports

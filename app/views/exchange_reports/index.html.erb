@@ -1,7 +1,7 @@
 <br>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-8">
+    <div class="col-md-8">
       <% if @exchange_reports.present? %>
         <h2>Your Currency Exchange Reports</h2>
         <br>
@@ -42,8 +42,8 @@
          in navigation menu to create one.</h5>
       <% end %>
     </div>
-    <div class="col-1"></div>
-    <div class="col-3">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
       <br>
       <strong>This is a web app that helps You to decide when to exchange your currency. Supported currencies are: <%= ExchangeReport::CURRENCIES.join(', ') %>.</strong>
     </div>

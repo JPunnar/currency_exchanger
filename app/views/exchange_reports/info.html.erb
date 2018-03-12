@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-5">
+    <div class="col-sm-5">
       <p>This is a web app that helps You to decide when to exchange money
       from one currency to another.</p>
       <p>Written using Ruby on Rails framework.</p>
@@ -9,7 +9,14 @@
       <p>App makes API requests to fetch currency exchange rates. Identical request is never made twice.</p>
       <p>The more this app is used, the more currency exchange rates data is saved to database.</p>
       <p>This means that speed and reliability grow with use.</p>
+      <p>Report generation time can be about one minute if making report with 250 weeks and all of the rates need to be fetched through API (due to API limitations).
+      </p>
       <strong>NB! This app is not intended for real-world use; The prediction algorithm simply uses randomness.</strong>
     </div>
   </div>
+  <br>
+  <%= link_to root_path, class: 'btn btn-custom' do %>
+    <%= fa_icon "chevron-circle-left", text: "Back" %>
+  <% end %>
 </div>
+<br>

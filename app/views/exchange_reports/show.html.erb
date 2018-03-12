@@ -32,8 +32,8 @@
       <br>
       <h3>Chart</h3>
       <br>
-      <%= line_chart @exchange_report.data_for_chart, min: 0.75 * @exchange_report.amount_no_waiting,
-        max: 1.25 * @exchange_report.amount_no_waiting, curve: false, xtitle: "Year and week",
+      <%= line_chart @exchange_report.data_for_chart, min: 0.6 * @exchange_report.amount_no_waiting,
+        max: 1.4 * @exchange_report.amount_no_waiting, curve: false, xtitle: "Year and week",
         ytitle: "Amount to receive" %>
       <br>
       <br>
@@ -49,15 +49,18 @@
           <th>Profit/Loss</th>
         </tr>
         <% @exchange_report.exchange_rates.each_with_index do |exchange_rate, index| %>
-          <tr class="<%= @exchange_report.rank_class(exchange_rate.id) %>">
+          <tr class="<%= 'top-three' if @exchange_report.top_three?(exchange_rate.id) %>">
             <td><strong><%= @exchange_report.rank_number(exchange_rate.id) %></strong></td>
             <td><%= @exchange_report.future_dates[index].strftime('%Y - %W') %></td>
             <td><%= exchange_rate.rate %></td>
             <td><%= exchange_rate.prediction %></td>
             <td class="<%= @exchange_report.color_class(exchange_rate) %>">
-              <%= @exchange_report.target_currency_amount(exchange_rate) %></td>
+              <%= index.zero? ? 
+                number_with_precision(@exchange_report.amount_no_waiting, precision: 2) :
+                @exchange_report.target_currency_amount(exchange_rate) %></td>
             <td class="<%= @exchange_report.color_class(exchange_rate) %>">
-              <%= @exchange_report.profit_or_loss(exchange_rate) %></td>
+              <%= number_with_precision(@exchange_report.profit_or_loss(exchange_rate), 
+                precision: 2) %></td>
           </tr>
         <% end %>
       </table>

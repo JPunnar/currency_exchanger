@@ -7,8 +7,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'cancancan', '~> 2.0'
-gem 'chartkick', '~> 2.3', '>= 2.3.2'
+gem "cancancan", "~> 2.0"
+gem "chartkick", "~> 2.3", ">= 2.3.2"
 gem "autoprefixer-rails"
 gem "bootstrap", "~> 4.0.0"
 gem "devise"
@@ -32,14 +32,13 @@ gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.5"
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
+  gem "rspec-rails", "~> 3.7", ">= 3.7.2"
   # Adds support for Capybara system testing and selenium driver
   gem "capybara", "~> 2.13"
   gem "pry", "~> 0.11.3"
   gem "selenium-webdriver"
+  gem "fabrication"
 end
 
 group :development do
@@ -48,11 +47,8 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "rubocop", require: false
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "web-console", ">= 3.3.0"
-  # Spring speeds up development by keeping your application running in the background.
-  # Read more: https://github.com/rails/spring
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
 end

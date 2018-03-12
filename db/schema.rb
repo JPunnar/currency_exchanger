@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309210407) do
+ActiveRecord::Schema.define(version: 20180312005915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180309210407) do
     t.decimal "prediction", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date", "base_currency", "target_currency"], name: "rates_multicolumn_index"
   end
 
   create_table "exchange_rates_reports", id: false, force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180309210407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "future_dates", default: [], array: true
+    t.integer "best_weeks_ids", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|

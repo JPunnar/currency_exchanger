@@ -1,3 +1,10 @@
+<%= link_to root_path, class: 'btn btn-custom' do %>
+  <%= fa_icon "chevron-circle-left", text: "Back" %>
+<% end %>
+<br>
+<br>
+<h4>Exchange Report</h4>
+<br>
 <%= form_for @exchange_report do |f| %>
   <% if f.object.errors.any? %>
     <ul class="alert alert-danger">

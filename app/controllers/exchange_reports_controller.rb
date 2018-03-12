@@ -5,11 +5,9 @@ class ExchangeReportsController < ApplicationController
   load_and_authorize_resource except: [:info]
 
   def index
-
   end
 
   def new
-
   end
 
   def create
@@ -23,11 +21,9 @@ class ExchangeReportsController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
-
   end
 
   def update
