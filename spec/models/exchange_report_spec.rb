@@ -76,7 +76,7 @@ RSpec.describe ExchangeReport, type: :model do
     it "should correctly calculate future dates" do
       expect(@exchange_report.future_dates.size).to eq(@exchange_report.max_wait_time_in_weeks + 1)
       @exchange_report.future_dates.each_with_index do |future_date, index|
-        expect(future_date).to eq(Date.today + index.weeks)
+        expect(future_date).to eq(@exchange_report.created_at.beginning_of_week + index.weeks)
       end
     end
 
