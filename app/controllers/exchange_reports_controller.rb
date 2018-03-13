@@ -4,15 +4,14 @@ class ExchangeReportsController < ApplicationController
   before_action :authenticate_user!, except: [:info]
   load_and_authorize_resource except: [:info]
 
-  def index
-  end
+  def index; end
 
-  def new
-  end
+  def new; end
 
   def create
     if @exchange_report.save
       @exchange_report.collect_data
+      flash[:notice] = "Successfully created report"
       redirect_to @exchange_report
     else
       flash.now[:alert] = "Failed to create report"
@@ -20,15 +19,14 @@ class ExchangeReportsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @exchange_report.update_attributes(exchange_report_params)
       @exchange_report.collect_data
+      flash[:notice] = "Successfully updated report"
       redirect_to @exchange_report
     else
       flash.now[:alert] = "Failed to update report"
@@ -38,6 +36,7 @@ class ExchangeReportsController < ApplicationController
 
   def destroy
     if @exchange_report.destroy
+      flash[:notice] = "Successfully deleted report"
       redirect_to root_path
     else
       flash.now[:alert] = "Failed to delete report"
