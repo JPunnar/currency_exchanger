@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExchangeReportsController < ApplicationController
-  before_action :authenticate_user!, except: [:info]
+  before_action :authenticate_user!, except: [:info, :show]
   load_and_authorize_resource except: [:info, :index]
 
   def index
