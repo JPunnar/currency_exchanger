@@ -61,7 +61,8 @@ class ExchangeReport < ApplicationRecord
 
   # amount to receive if exchange money without waiting
   def amount_no_waiting
-    (amount * exchange_rates.first.rate).round(2)
+    return 0 if exchange_rates&.first&.rate.blank?
+    (amount * exchange_rates&.first&.rate).round(2)
   end
 
   def color_class(rate)

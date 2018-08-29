@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ExchangeReportsController < ApplicationController
-  before_action :authenticate_user!, except: [:info, :show]
-  load_and_authorize_resource except: [:info, :index]
+  before_action :authenticate_user!, except: [:info]
+  load_and_authorize_resource except: [:info, :index, :show]
 
   def index
     @exchange_reports = ExchangeReport.all
@@ -21,7 +21,9 @@ class ExchangeReportsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @exchange_report = ExchangeReport.find(params[:id])
+  end
 
   def edit; end
 
