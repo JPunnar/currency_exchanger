@@ -32,6 +32,8 @@
     <%= f.select :target_currency, options_for_select(ExchangeReport::CURRENCIES, f.object.target_currency), {}, class: "custom-select", required: true %>
     <br>
     <br>
-    <%= f.submit "Submit", class: "btn btn-custom" %>
+    <%= f.submit "Submit", class: "btn btn-custom", disabled: true %>
   </div>
+  <br>
+  <strong>NB! IMPORTANT: The fixer API endpoint has been deprecated. It's not possible to create new reports at the momemt. </strong>
 <% end %>

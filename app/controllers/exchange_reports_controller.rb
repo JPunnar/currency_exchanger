@@ -2,9 +2,11 @@
 
 class ExchangeReportsController < ApplicationController
   before_action :authenticate_user!, except: [:info]
-  load_and_authorize_resource except: [:info]
+  load_and_authorize_resource except: [:info, :index]
 
-  def index; end
+  def index
+    @exchange_reports = ExchangeReport.all
+  end
 
   def new; end
 
